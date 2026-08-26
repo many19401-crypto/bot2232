@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 import asyncio
+import sys
+
+from pydantic import ValidationError
 
 from bot.client import MusicBot
 from config.settings import get_settings
@@ -13,7 +16,15 @@ from utils.logger import configure_logging
 
 
 async def run() -> None:
-    settings = get_settings()
+    try:
+        settings = get_settings()
+    except ValidationError as exc:
+        print(
+            "Configuration error: DISCORD_TOKEN is missing or invalid. "
+            "Copy .env.example to .env and set DISCORD_TOKEN.",
+            file=sys.stderr,
+        )
+        raise SystemExit(2) from exc
     configure_logging(settings.log_level)
     await init_database(settings)
     factory = get_session_factory(settings)
