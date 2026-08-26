@@ -5,13 +5,13 @@ import logging
 import time
 from collections import deque
 from collections.abc import Awaitable, Callable
-from enum import StrEnum
 from typing import TYPE_CHECKING
 
 import discord
 
 from config.settings import Settings
 from database.repositories.library import HistoryRepository
+from utils.compat import StrEnum
 
 from .extractor import ExtractorError, MediaExtractor
 from .ffmpeg import FFmpegFactory

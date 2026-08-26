@@ -1,6 +1,6 @@
 # Production Discord Music Bot
 
-Полноценный асинхронный Discord music bot на Python 3.13+, `discord.py 2.x`, PostgreSQL, Redis, yt-dlp и FFmpeg. Сессии воспроизведения изолированы по `guild_id`: очередь, блокировки, состояние voice и панель одного сервера никогда не используются другим сервером.
+Полноценный асинхронный Discord music bot на Python 3.10+ (Python 3.13 рекомендуется), `discord.py 2.x`, PostgreSQL, Redis, yt-dlp и FFmpeg. Сессии воспроизведения изолированы по `guild_id`: очередь, блокировки, состояние voice и панель одного сервера никогда не используются другим сервером.
 
 > **Ограничение источников.** yt-dlp и сайты-источники меняются независимо от бота. Бот не обходит DRM, paywall или приватный контент. Stream URL не сохраняется в PostgreSQL/Redis: он запрашивается заново непосредственно перед запуском FFmpeg.
 
@@ -30,7 +30,7 @@ Compose поднимает bot, PostgreSQL 17 и Redis 7, хранит PostgreSQ
 
 ## Локальная установка
 
-Требуется Python 3.13+, FFmpeg с доступным executable и libopus/PyNaCl.
+Требуется Python 3.10+; для production рекомендуется Python 3.13+. Нужен FFmpeg с доступным executable и libopus/PyNaCl.
 
 ```bash
 python3.13 -m venv .venv

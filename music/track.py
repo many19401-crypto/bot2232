@@ -3,6 +3,8 @@ from __future__ import annotations
 import datetime as dt
 from dataclasses import dataclass, field
 
+from utils.compat import UTC
+
 
 def format_duration(seconds: float | None) -> str:
     if seconds is None or seconds < 0:
@@ -24,7 +26,7 @@ class Track:
     source: str = "unknown"
     requester_id: int = 0
     requester_name: str = "Unknown user"
-    added_at: dt.datetime = field(default_factory=lambda: dt.datetime.now(dt.UTC))
+    added_at: dt.datetime = field(default_factory=lambda: dt.datetime.now(UTC))
     stream_url: str | None = field(default=None, repr=False)
 
     @property

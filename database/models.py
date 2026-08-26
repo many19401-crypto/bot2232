@@ -17,6 +17,8 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
+from utils.compat import UTC
+
 
 class Base(DeclarativeBase):
     pass
@@ -35,12 +37,12 @@ class GuildSettings(Base):
     allow_volume_100: Mapped[bool] = mapped_column(Boolean, default=False)
     permissions: Mapped[dict[str, str]] = mapped_column(JSON, default=dict)
     created_at: Mapped[dt.datetime] = mapped_column(
-        DateTime(timezone=True), default=lambda: dt.datetime.now(dt.UTC)
+        DateTime(timezone=True), default=lambda: dt.datetime.now(UTC)
     )
     updated_at: Mapped[dt.datetime] = mapped_column(
         DateTime(timezone=True),
-        default=lambda: dt.datetime.now(dt.UTC),
-        onupdate=lambda: dt.datetime.now(dt.UTC),
+        default=lambda: dt.datetime.now(UTC),
+        onupdate=lambda: dt.datetime.now(UTC),
     )
 
 
@@ -51,8 +53,8 @@ class UserPreference(Base):
     preferences: Mapped[dict[str, str]] = mapped_column(JSON, default=dict)
     updated_at: Mapped[dt.datetime] = mapped_column(
         DateTime(timezone=True),
-        default=lambda: dt.datetime.now(dt.UTC),
-        onupdate=lambda: dt.datetime.now(dt.UTC),
+        default=lambda: dt.datetime.now(UTC),
+        onupdate=lambda: dt.datetime.now(UTC),
     )
 
 
@@ -64,7 +66,7 @@ class Playlist(Base):
     name: Mapped[str] = mapped_column(String(100))
     visibility: Mapped[str] = mapped_column(String(10), default="private")
     created_at: Mapped[dt.datetime] = mapped_column(
-        DateTime(timezone=True), default=lambda: dt.datetime.now(dt.UTC)
+        DateTime(timezone=True), default=lambda: dt.datetime.now(UTC)
     )
     tracks: Mapped[list[PlaylistTrack]] = relationship(
         back_populates="playlist", cascade="all, delete-orphan", order_by="PlaylistTrack.position"
@@ -99,7 +101,7 @@ class Favorite(Base):
     duration: Mapped[float | None] = mapped_column(Float, nullable=True)
     thumbnail: Mapped[str | None] = mapped_column(Text, nullable=True)
     created_at: Mapped[dt.datetime] = mapped_column(
-        DateTime(timezone=True), default=lambda: dt.datetime.now(dt.UTC)
+        DateTime(timezone=True), default=lambda: dt.datetime.now(UTC)
     )
 
 
@@ -115,5 +117,5 @@ class History(Base):
     duration: Mapped[float | None] = mapped_column(Float, nullable=True)
     duration_played: Mapped[float] = mapped_column(Float, default=0)
     played_at: Mapped[dt.datetime] = mapped_column(
-        DateTime(timezone=True), default=lambda: dt.datetime.now(dt.UTC), index=True
+        DateTime(timezone=True), default=lambda: dt.datetime.now(UTC), index=True
     )
